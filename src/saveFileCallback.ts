@@ -14,7 +14,7 @@ import generateTpl from './generateTpl';
 import { replacePartInfoOfOldHeader } from './replacePartInfoOfOldHeader';
 import { replaceWholeOldHeader } from './replaceWholeOldHeader';
 
-export function saveFileWhenHeaderExistCallback (document: any) {
+export function saveFileCallback (document: any) {
   document?.save().then(() => {
     const fileUri = document.uri;
     const extname = path.extname(fileUri.fsPath);
@@ -25,20 +25,20 @@ export function saveFileWhenHeaderExistCallback (document: any) {
   
     // 读取文件内容
     vscode.workspace.fs.readFile(fileUri).then((buffer: any) => {
-      const content = Buffer.from(buffer).toString('utf8');
+      const documentText = Buffer.from(buffer).toString('utf8');
   
       
-      let updatedContent = '';
-      if (content.match(/\* version\s*:/)) {
-        updatedContent = replaceWholeOldHeader(content);
-      } else if (content.match(/[\n\s]*\/\*\*/) || content.match(/[\n\s]*\<\!\-\-/)) {
-        updatedContent = replacePartInfoOfOldHeader(content);
+      let updateddocumentText = '';
+      if (documentText.match(/\* version\s*:/)) {
+        updateddocumentText = replaceWholeOldHeader(documentText);
+      } else if (documentText.match(/^[\n\s]*\/\*\*/) || documentText.match(/^[\n\s]*\<\!\-\-/)) {
+        updateddocumentText = replacePartInfoOfOldHeader(documentText);
       } else {
-        updatedContent = generateTpl({}, extname) + content;
+        updateddocumentText = generateTpl({}, extname) + documentText;
       }
   
       vscode.workspace.fs
-        .writeFile(fileUri, new TextEncoder().encode(updatedContent))
+        .writeFile(fileUri, new TextEncoder().encode(updateddocumentText))
         .then(undefined, (error: any) => {
           console.error("Error updating file:", error);
         });

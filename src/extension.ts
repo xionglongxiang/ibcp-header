@@ -9,21 +9,19 @@
  */
 import * as vscode from 'vscode';
 
-import {
-  saveFileWhenHeaderExistCallback,
-} from './saveFileWhenHeaderExistCallback';
+import { saveFileCallback } from './saveFileCallback';
 
 export function activate(context: vscode.ExtensionContext) {
 
   let fileSave = vscode.workspace.onDidSaveTextDocument((document) => {
 
-    saveFileWhenHeaderExistCallback(document);
+    saveFileCallback(document);
   });
   let manual = vscode.commands.registerCommand('ibcp-fileheader.fileheader', ()=> {
     let document = vscode.window.activeTextEditor?.document
 
     if (!document) return
-    saveFileWhenHeaderExistCallback(document);
+    saveFileCallback(document);
   });  
 
 
