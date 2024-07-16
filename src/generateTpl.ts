@@ -1,5 +1,4 @@
 import { format } from 'date-fns';
-import * as vscode from 'vscode';
 
 import { getGitAuthor } from './utils';
 
@@ -14,10 +13,6 @@ interface ITplParams {
 }
 
 export default function generateTpl (params?: ITplParams, extname?: string) {
-
-
-  vscode.window.showInformationMessage('params: ' + JSON.stringify(params));
-
 
   let prefix = extname === '.vue' ? '<!--' : '/**';
   let postfix = extname === '.vue' ? '-->': '*/';
@@ -36,7 +31,7 @@ export default function generateTpl (params?: ITplParams, extname?: string) {
  * @Description     : ${desc}
  * @Author          : ${author}
  * @createdTime     : ${createdTime}
- * @LastModifiedBy  : ${LastModifiedBy}
+ * @LastModifiedBy  : xionglongxiang
  * @LastModifiedTime: ${LastModifiedTime}
  * @Copyright       : ${copyright}
  ${postfix}

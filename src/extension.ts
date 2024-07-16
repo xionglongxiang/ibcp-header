@@ -1,6 +1,14 @@
+/**
+ * @Title           : { 该文件的名称 }
+ * @Description     : { 该文件的描述 }
+ * @Author          : xionglongxiang
+ * @createdTime     : 2024-07-15 20:29:18
+ * @LastModifiedBy  : xionglongxiang
+ * @LastModifiedTime: 2024-07-15 20:34:06
+ * @Copyright       : Copyright: Shanghai Batchsight Pharmaceutical Technologies, Inc. Copyright(c) 2024
+ */
 import * as vscode from 'vscode';
 
-import { createFileCallback } from './createFileCallback';
 import {
   saveFileWhenHeaderExistCallback,
 } from './saveFileWhenHeaderExistCallback';
@@ -11,26 +19,15 @@ export function activate(context: vscode.ExtensionContext) {
 
     saveFileWhenHeaderExistCallback(document);
   });
-  let disposable = vscode.workspace.onDidCreateFiles(createFileCallback);
   let manual = vscode.commands.registerCommand('ibcp-fileheader.fileheader', ()=> {
     let document = vscode.window.activeTextEditor?.document
 
     if (!document) return
-    if (!document?.save) return
-    const text = document.getText()
-    document.save().then(() => {
-      if (text.match(/[\n\s]*\/\*\*/) || text.match(/[\n\s]*\<\!\-\-/)) {
-        vscode.window.showInformationMessage('match exist')
-        saveFileWhenHeaderExistCallback(document);
-      } else {  
-        vscode.window.showInformationMessage('match not exist')
-        createFileCallback(document);
-      }
-    })
+    saveFileWhenHeaderExistCallback(document);
   });  
 
 
-  context.subscriptions.push(fileSave, disposable, manual);
+  context.subscriptions.push(fileSave, manual);
 }
 
 export function deactivate() {}

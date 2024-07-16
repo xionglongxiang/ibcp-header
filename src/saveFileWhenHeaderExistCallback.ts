@@ -1,3 +1,12 @@
+/**
+ * @Title           : { 该文件的名称 }
+ * @Description     : { 该文件的描述 }
+ * @Author          : xionglongxiang
+ * @createdTime     : 2024-07-15 20:35:44
+ * @LastModifiedBy  : xionglongxiang
+ * @LastModifiedTime: 2024-07-15 20:53:17
+ * @Copyright       : Copyright: Shanghai Batchsight Pharmaceutical Technologies, Inc. Copyright(c) 2024
+ */
 import * as path from 'path';
 import * as vscode from 'vscode';
 
@@ -25,7 +34,7 @@ export function saveFileWhenHeaderExistCallback (document: any) {
       } else if (content.match(/[\n\s]*\/\*\*/) || content.match(/[\n\s]*\<\!\-\-/)) {
         updatedContent = replacePartInfoOfOldHeader(content);
       } else {
-        updatedContent = generateTpl({}, extname) + content; 
+        updatedContent = generateTpl({}, extname) + content;
       }
   
       vscode.workspace.fs
