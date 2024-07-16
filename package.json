@@ -3,6 +3,10 @@
   "displayName": "ibcp-fileheader",
   "description": "file header",
   "version": "0.0.2",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xionglongxiang/ibcp-header.git"
+  },
   "engines": {
     "vscode": "^1.91.0"
   },
@@ -13,35 +17,15 @@
     "onStartupFinished"
   ],
   "main": "./out/extension.js",
-  "contributes": {
-    "commands": [
-      {
-        "command": "ibcp-fileheader.fileheader",
-        "title": "fileheader"
-      }
-    ],
-    "keybindings": [  
-        {  
-            "command": "ibcp-fileheader.fileheader",  
-            "key": "ctrl+alt+i",  
-            "mac": "ctrl+alt+i",
-            "when": "editorTextFocus"
-        },
-        {  
-          "command": "ibcp-fileheader.fileheader",  
-          "key": "cmd+ctrl+i",
-          "mac": "cmd+ctrl+i",
-          "when": "editorTextFocus"  
-        }
-    ]  
-  },
+  "contributes": {},
   "scripts": {
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
     "pretest": "npm run compile && npm run lint",
     "lint": "eslint src --ext ts",
-    "test": "vscode-test"
+    "test": "vscode-test",
+    "build": "vsce package"
   },
   "devDependencies": {
     "@types/mocha": "^10.0.7",
@@ -50,7 +34,7 @@
     "@typescript-eslint/eslint-plugin": "^7.14.1",
     "@typescript-eslint/parser": "^7.11.0",
     "@vscode/test-cli": "^0.0.9",
-    "@vscode/test-electron": "^2.4.0",
+    "@vscode/test-electron": "^2.4.1",
     "eslint": "^8.57.0",
     "typescript": "^5.4.5"
   },

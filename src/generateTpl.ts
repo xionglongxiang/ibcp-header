@@ -1,37 +1,42 @@
-import { format } from 'date-fns';
-
-import { getGitAuthor } from './utils';
-
+/**
+ * @Title           : { 请补充该文件的名称 }
+ * @Description     : { 请补充该文件的描述 }
+ * @Author          : 未知
+ * @createdTime     : 未知
+ * @LastModifiedBy  : xionglongxiang
+ * @LastModifiedTime: 2024-07-17 01:11:23
+ * @Copyright       : Shanghai BatchSight Pharmaceutical Technologies, Inc. Copyright(c) 2024
+ */
+import { getFormattedTime, getGitAuthor } from './utils';
 interface ITplParams {
-  title?: string,
-  desc?: string,
-  author?: string,
-  createdTime?: string,
+  Title?: string,
+  Description?: string,
+  Author: string,
+  CreatedTime: string,
   LastModifiedBy?: string,
   LastModifiedTime?: string,
-  copyright?: string,
+  extname?: string
 }
 
-export default function generateTpl (params?: ITplParams, extname?: string) {
+export default function generateTpl (params: ITplParams) {
 
-  let prefix = extname === '.vue' ? '<!--' : '/**';
-  let postfix = extname === '.vue' ? '-->': '*/';
-  const time = format(new Date(), "yyyy-MM-dd HH:mm:ss");
+  let prefix = params?.extname === '.vue' ? '<!--' : '/**';
+  let postfix = params?.extname === '.vue' ? '-->': '*/';
 
-  let title = params?.title || '{ 该文件的名称 }';
-  let desc = params?.desc || '{ 该文件的描述 }';
-  let author = params?.author || getGitAuthor();
-  let createdTime = params?.createdTime || time;
-  let LastModifiedBy = author;
-  let LastModifiedTime = time;
-  let copyright = params?.copyright || 'Copyright: Shanghai Batchsight Pharmaceutical Technologies, Inc. Copyright(c) 2024';
+  let title = params?.Title || '{ 请补充该文件的名称 }';
+  let desc = params?.Description || '{ 请补充该文件的描述 }';
+  let author = params.Author;
+  let createdTime = params.CreatedTime;
+  let LastModifiedBy = getGitAuthor();
+  let LastModifiedTime = getFormattedTime();
+  let copyright = 'Shanghai BatchSight Pharmaceutical Technologies, Inc. Copyright(c) 2024';
 
   return `${prefix}
  * @Title           : ${title}
  * @Description     : ${desc}
  * @Author          : ${author}
  * @createdTime     : ${createdTime}
- * @LastModifiedBy  : xionglongxiang
+ * @LastModifiedBy  : ${LastModifiedBy}
  * @LastModifiedTime: ${LastModifiedTime}
  * @Copyright       : ${copyright}
  ${postfix}
