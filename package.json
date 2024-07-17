@@ -19,10 +19,10 @@
   "main": "./out/extension.js",
   "contributes": {},
   "scripts": {
-    "vscode:prepublish": "npm run compile",
+    "vscode:prepublish": "yarn compile",
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
-    "pretest": "npm run compile && npm run lint",
+    "pretest": "yarn compile && yarn lint",
     "lint": "eslint src --ext ts",
     "test": "vscode-test",
     "build": "vsce package"
